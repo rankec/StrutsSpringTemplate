@@ -1,18 +1,23 @@
-package com.rankec.sst.user.model;
+package com.rankec.sst.login.model;
 
 import org.springframework.data.annotation.Id;
 
 /**
  * Created by rankec on 14.11.14.
  */
-public class User implements IUser {
+public class User {
 
     @Id
     private String id;
     private String name;
+    private String password;
 
     public User() {
-        name = "test";
+    }
+
+    public User(String name, String password) {
+        this.name = name;
+        this.password = password;
     }
 
     public String getId() {
@@ -31,15 +36,20 @@ public class User implements IUser {
         this.name = name;
     }
 
-    public void printUser() {
-        System.out.println("printUser() is executed...");
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
     public String toString() {
-        return "UserBoImpl{" +
+        return "User{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

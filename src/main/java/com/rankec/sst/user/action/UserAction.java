@@ -1,35 +1,47 @@
 package com.rankec.sst.user.action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.rankec.sst.user.model.IUser;
-import com.rankec.sst.user.repository.UserRepository;
+import com.rankec.sst.login.repository.UserRepository;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by rankec on 14.11.14.
  */
 
-@EnableMongoRepositories("com.rankec.sst")
 public class UserAction extends ActionSupport {
 
-    IUser user;
+    private String username;
+    private String message;
 
     @Autowired
     private UserRepository repository;
 
-    public IUser getUser() {
-        return user;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser(IUser user) {
-        this.user = user;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String execute() throws Exception {
 
-        user.printUser();
-        repository.save(user);
+        HttpServletRequest request = ServletActionContext.getRequest();
+        this.setUsername(request.getUserPrincipal().getName());
+        this.setMessage("Successful Struts spring secuirty authentication");
+
+
         return SUCCESS;
 
     }

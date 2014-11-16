@@ -1,6 +1,8 @@
 package com.rankec.sst.login.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Created by rankec on 14.11.14.
@@ -15,9 +17,12 @@ public class User {
     public User() {
     }
 
+
     public User(String name, String password) {
         this.name = name;
-        this.password = password;
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
+
     }
 
     public String getId() {

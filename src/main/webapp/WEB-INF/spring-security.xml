@@ -23,8 +23,15 @@
     </http>
 
     <authentication-manager erase-credentials="false">
-        <authentication-provider user-service-ref="mongoUserDetailsService"/>
+        <authentication-provider user-service-ref="mongoUserDetailsService">
+
+            <password-encoder ref="bCryptPasswordEncoder"/>
+
+        </authentication-provider>
     </authentication-manager>
 
     <beans:bean name="mongoUserDetailsService" class="com.rankec.sst.login.MongoUserDetailsService"/>
+    <beans:bean id='bCryptPasswordEncoder' class='org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder'/>
+
+
 </beans:beans>
